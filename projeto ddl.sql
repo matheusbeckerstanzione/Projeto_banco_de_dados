@@ -1,68 +1,57 @@
---E UM COMENTARIO!
-/*COMENTARIO DE MULTIPLAS LINHAS*/
+CREATE SCHEMA ecommerce;
 
---DDL - CRIAR - CREATE(SCRHEMA, TABELA)
-CREATE SCHEMA clinica;
-
---CREATE TABLE <SCHEMA>.<NOME_DA_TABELA>
-CREATE TABLE clinica.medico (
-	--informar Colunas
-	--nome_da_coluna tipo_de_dados
-	--PRIMARY KEY GENERATED ALWAYAS AS IDENTITY
-	--É CRIAR AUTOMATICAMENTE
-	id_medico INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+CREATE TABLE ecommerce.cliente(
+	id_cliente INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	nome TEXT NOT NULL,
-	crm TEXT NOT NULL,
-	especialidade TEXT NOT NULL
+	email TEXT NOT NULL,
+	senha TEXT NOT NULL,
+	telefone TEXT,
+	data_cadastro TIMESTAMPTZ
 );
 
-CREATE TABLE clinica.paciente (
-	--informar Colunas
-	--nome_da_coluna tipo_de_dados
-	--PRIMARY KEY GENERATED ALWAYAS AS IDENTITY
-	--É CRIAR AUTOMATICAMENTE
-	id_paciente INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	nome TEXT NOT NULL,
-	idade int NOT NULL,
-	date_nascimento DATE NOT NULL
+CREATE TABLE ecommerce.pedido(
+	id_pedido INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_cliente INT NOT NULL,
+	data_cadastro TIMESTAMPTZ,
+	valor_total NUMERIC (10,4),
+	status TEXT,
+
+	FOREIGN KEY (id_cliente)
+	REFERENCES ecommerce.cliente(id_cliente)
 );
 
-CREATE TABLE clinica.clinica (
-	--informar Colunas
-	--nome_da_coluna tipo_de_dados
-	--PRIMARY KEY GENERATED ALWAYAS AS IDENTITY
-	--É CRIAR AUTOMATICAMENTE
-	id_clinica INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+CREATE TABLE ecommerce.pagamento(
+id_pagamento INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_pedido INT NOT NULL,
+	forma_pagamento TEXT NOT NULL,
+	status TEXT,
+	data_pagamento DATE NOT NULL,
+
+	FOREIGN KEY (id_pagamento)
+	REFERENCES ecommerce.pagamento(id_pagamento)
+);
+
+CREATE TABLE ecommerce.produto(
+	id_produto INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	nome TEXT NOT NULL,
 	descricao TEXT NOT NULL,
-	endereco TEXT NOT NULL
+	preco NUMERIC (18,4) NOT NULL,
+	estoque_disponivel INT NOT NULL,
+	imagem_url TEXT NOT NULL
 );
 
-CREATE TABLE clinica.consulta (
-	--informar Colunas
-	--nome_da_coluna tipo_de_dados
-	--PRIMARY KEY GENERATED ALWAYAS AS IDENTITY
-	--É CRIAR AUTOMATICAMENTE
-	id_consulta INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	data TIMESTAMPTZ NOT NULL,
-	valor NUMERIC (10,4), 
-	id_medico INT NOT NULL,
-	FOREIGN KEY (id_medico)
-	REFERENCES clinica.medico(id_medico),
+CREATE TABLE ecommerce.item_pedido(
+	id_item INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	id_produto INT NOT NULL,
+	id_pedido INT NOT NULL,
+	quantidade INT NOT NULL,
+
+	FOREIGN KEY (id_produto)
+	REFERENCES ecommerce.produto(id_produto),
+
+	FOREIGN KEY (id_pedido)
+	REFERENCES ecommerce.pedido(id_pedido)
 	
-	--maneira abreviada
-	id_clinica INT NOT NULL 
-	REFERENCES clinica.clinica(id_clinica),
-	
-	id_paciente INT NOT NULL
-	REFERENCES clinica.paciente(id_paciente)
+
 );
-
-
---APAGAR TABELA - DROP
-/*DROP TABLE clinica.consulta;
-DROP TABLE clinica.clinica;
-DROP TABLE clinica.paciente;
-DROP TABLE clinica.medico;*/
-
 
