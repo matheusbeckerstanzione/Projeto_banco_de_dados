@@ -8,16 +8,14 @@ import br.com.ecommerce.api.service.PedidoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @RestController
-@RequestMapping("//api/pedido")
+@RequestMapping("/api/pedido")
 public class PedidoController {
 
     private final PedidoService pedidoService;
@@ -34,4 +32,11 @@ public class PedidoController {
         return ResponseEntity.ok(pedidos);
     }
 
+    @PostMapping
+    public ResponseEntity<Pedido> salvarPedido(@RequestBody Pedido pedido) {
+
+        pedidoService.cadastrarpedido(pedido);
+
+        return ResponseEntity.ok(pedido);
+    }
 }

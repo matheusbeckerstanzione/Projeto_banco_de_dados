@@ -1,5 +1,6 @@
 package br.com.ecommerce.api.service;
 
+import br.com.ecommerce.api.model.Cliente;
 import br.com.ecommerce.api.model.Produto;
 import br.com.ecommerce.api.repository.ProdutoRepository;
 
@@ -18,5 +19,9 @@ public class ProdutoService {
 
     public List<Produto> ListarTodos(){
         return produtoRepository.findAll();
+    }
+
+    public Produto cadastrarProduto(Produto pr){
+        return produtoRepository.save(pr);
     }
 }

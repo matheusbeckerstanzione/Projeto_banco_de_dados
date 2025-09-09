@@ -16,11 +16,6 @@ public class Pagamento {
     @Column(name = "id_pagamento", nullable = false)
     private Integer id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_pagamento", nullable = false)
-    private Pagamento pagamento;
-
     @Column(name = "id_pedido", nullable = false)
     private Integer idPedido;
 

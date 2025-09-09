@@ -21,4 +21,8 @@ public class PedidoService {
     public List<Pedido> listarTodos(){
         return pedidoRepository.findAll();
     }
+    public Pedido cadastrarpedido(Pedido pe){
+        return pedidoRepository.save(pe);
+    }
+
 }
