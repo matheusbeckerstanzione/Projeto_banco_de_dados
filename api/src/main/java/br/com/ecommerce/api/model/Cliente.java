@@ -3,6 +3,9 @@ package br.com.ecommerce.api.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.OffsetDateTime;
 
@@ -30,5 +33,7 @@ public class Cliente {
 
     @Column(name = "data_cadastro")
     private OffsetDateTime dataCadastro;
+
+
 
 }

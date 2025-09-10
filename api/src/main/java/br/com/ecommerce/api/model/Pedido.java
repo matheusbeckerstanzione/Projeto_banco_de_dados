@@ -17,9 +17,6 @@ public class Pedido {
     @Column(name = "id_pedido", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente idCliente;
 
     @Column(name = "data_cadastro")
     private OffsetDateTime dataCadastro;
@@ -30,4 +27,7 @@ public class Pedido {
     @Column(name = "status", length = Integer.MAX_VALUE)
     private String status;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Cliente idCliente;
 }
