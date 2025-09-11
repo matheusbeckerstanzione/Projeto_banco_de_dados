@@ -32,4 +32,16 @@ public class ItemPedidoController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(itemPedido);
     }
-}
+
+    @DeleteMapping
+    public ResponseEntity<?> deletarItemPedido(@PathVariable Integer id){
+
+        ItemPedido itemPedido = itempedidoService.deletarItemPedido(id);
+
+        if(itemPedido == null)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente " + id + "não encontrado");{}
+
+        return ResponseEntity.ok(itemPedido);
+        }
+    }
+

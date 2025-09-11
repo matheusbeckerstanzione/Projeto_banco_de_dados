@@ -1,6 +1,7 @@
 package br.com.ecommerce.api.service;
 
 import br.com.ecommerce.api.model.Cliente;
+import br.com.ecommerce.api.model.ItemPedido;
 import br.com.ecommerce.api.repository.ClienteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,24 @@ public class ClienteService {
         return cliente;
     }
 
+    public Cliente atualizarCliente(Integer id, Cliente clienteNovo){
+
+        Cliente clienteAntigo = buscarPorId(id);
+
+        if (clienteAntigo == null){
+            return null;
+        }
+
+        clienteAntigo.setNome(clienteNovo.getNome());
+        clienteAntigo.setEmail(clienteNovo.getEmail());
+        clienteAntigo.setDataCadastro(clienteNovo.getDataCadastro());
+        clienteAntigo.setSenha(String.valueOf(clienteNovo.getSenha()));
+        clienteAntigo.setTelefone(String.valueOf(clienteNovo.getTelefone()));
+
+
+        return clienteRepository.save(clienteAntigo);
+    }
 
 }
+
+

@@ -1,6 +1,7 @@
 package br.com.ecommerce.api.controller;
 
 
+import br.com.ecommerce.api.model.Pedido;
 import br.com.ecommerce.api.model.Produto;
 
 import br.com.ecommerce.api.service.ProdutoService;
@@ -37,5 +38,16 @@ public class ProdutoController {
         produtoService.cadastrarProduto(produto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(produto);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deletarProduto(@PathVariable Integer id){
+
+        Produto produto = produtoService.deletarProduto(id);
+
+        if(produto == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente " + id + "não encontrado");{}
+
+        return ResponseEntity.ok(produto);
     }
 }

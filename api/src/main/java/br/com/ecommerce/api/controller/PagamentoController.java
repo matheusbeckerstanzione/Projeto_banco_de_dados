@@ -1,6 +1,7 @@
 package br.com.ecommerce.api.controller;
 
 
+import br.com.ecommerce.api.model.ItemPedido;
 import br.com.ecommerce.api.model.Pagamento;
 import br.com.ecommerce.api.service.PagamentoService;
 import br.com.ecommerce.api.service.ProdutoService;
@@ -35,5 +36,16 @@ public class PagamentoController {
         pagamentoService.cadastrarPagamento(pg);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(pg);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deletarPagamento(@PathVariable Integer id){
+
+       Pagamento pagamento = pagamentoService.deletarPagamento(id);
+
+        if(pagamento == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente " + id + "não encontrado");{}
+
+        return ResponseEntity.ok(pagamento);
     }
 }

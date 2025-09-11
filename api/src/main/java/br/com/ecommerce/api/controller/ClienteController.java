@@ -67,4 +67,17 @@ public class ClienteController {
         }
         return ResponseEntity.ok(cliente);
     }
+
+    @PutMapping
+    public ResponseEntity<?> atualizarCliente(@RequestBody Integer id, @RequestBody Cliente clienteNovo){
+
+        Cliente cl = clienteService.atualizarCliente(id, clienteNovo);
+
+        if (cl == null){
+            return ResponseEntity.status(404).body("Cliente não encontrado");
+
+        }
+        return ResponseEntity.ok(cl);
+    }
+
 }

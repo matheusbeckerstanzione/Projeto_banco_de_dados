@@ -1,10 +1,12 @@
 package br.com.ecommerce.api.controller;
 
 
+import br.com.ecommerce.api.model.ItemPedido;
 import br.com.ecommerce.api.model.Pedido;
 import br.com.ecommerce.api.model.Produto;
 import br.com.ecommerce.api.service.PedidoService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +38,18 @@ public class PedidoController {
     public ResponseEntity<Pedido> salvarPedido(@RequestBody Pedido pedido) {
 
         pedidoService.cadastrarpedido(pedido);
+
+        return ResponseEntity.ok(pedido);
+    }
+
+
+    @DeleteMapping
+    public ResponseEntity<?> deletarPedido(@PathVariable Integer id){
+
+        Pedido pedido = pedidoService.deletarPedido(id);
+
+        if(pedido == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente " + id + "não encontrado");{}
 
         return ResponseEntity.ok(pedido);
     }
