@@ -1,0 +1,62 @@
+CRUD
+create-criar ou cadastrar 
+read-ler
+Update-Atualizar
+Delete-apagar
+
+
+- Primeiro criar a model onde tudo vai começar
+
+
+- Repository // Onde fica as classes e interfaces, herda do jpaRepository
+
+primeiro passo para criar um service e a anotação @Repository depois a gente estrutura ele a gente coloca a o extends ele herda atributos da classe pai.
+
+@Repository
+public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
+}
+
+- Service-ele que fala se tem ou não tem, se tem ele manda para o controller que tem se não ele vai dar um "erro"
+
+primeiro passo para criar um service e a anotação @Service depois a gente estrutura ele e depois vai para o método.
+
+//estutura 
+  private final ClienteRepository clienteRepository;
+
+    public ClienteService(ClienteRepository repo){
+            clienteRepository = repo;
+
+    }
+ 
+//método EXEMPLO
+  //listar
+    public List<Cliente> listarTodos(){
+        return clienteRepository.findAll();
+    }
+
+    public Cliente cadastrarCliente(Cliente cl){
+        return clienteRepository.save(cl);
+    }
+
+    public Cliente buscarPorId(Integer id){
+
+        return clienteRepository.findById(id).orElse(null);
+
+    }
+
+-controller- a porta de entrada para a api, direcionando o caminho para o fronend mexer.
+
+@RestController //primeiro passo
+
+@RequestMapping("/api/clientes") //segundo passo
+
+
+public class ClienteController {
+    // Controller depende do server
+    private final ClienteService clienteService;//3 passo
+
+    public ClienteController(ClienteService service) {//4 passo
+      clienteService = service;
+    }
+
+                                                                                                                                                                                                                                       
